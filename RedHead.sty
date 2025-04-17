@@ -1,0 +1,138 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% progbookcn - Yet Another LaTeX Template for Programming or Technical Books
+%% WisdomFusion@gmail.com
+%% Jun, 2018
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{progbookcn}[Jun, 2018 Yet Another LaTeX Template for Programming or Technical Books]
+
+
+\RequirePackage{xunicode}
+\RequirePackage{color}
+
+\RequirePackage{xeCJK}
+\RequirePackage{fontspec}
+\setmainfont{FandolFang}
+\setCJKmainfont{FandolFang}
+\makeatletter
+
+\ExplSyntaxOn
+\fp_const:Nn \c__fdu_line_spread_fp
+  { \dim_ratio:nn { 29.6 bp } { 16 bp } / 1.2 }
+\PassOptionsToClass
+  {
+    UTF8,
+    twoside,
+    sub3section,
+    heading    = true,
+    linespread = \c__fdu_line_spread_fp,
+    fontset    = none,
+  }
+  { ctexart }
+\ExplSyntaxOff
+
+\ExplSyntaxOn
+\setCJKfamilyfont   { zhhei   } { FandolHei        }
+\newfontfamily      \enhei      { FandolHei          }
+% \NewDocumentCommand \heiti  { } { \CJKfamily { zhhei } \enhei }
+\setCJKfamilyfont   { zhkai   } { FandolKai          }
+\newfontfamily      \enkai      { FandolKai          }
+% \NewDocumentCommand \kaishu { } { \CJKfamily { zhkai } \enkai }
+\setCJKfamilyfont   { zhsong  } { FandolSong        }
+\newfontfamily      \ensong     { FandolSong        }
+% \NewDocumentCommand \songti { } { \CJKfamily { zhsong } \ensong }
+\setCJKfamilyfont   { zhxbs   } { xbs.ttf       }
+\newfontfamily      \enxbs      { xbs.ttf        }
+\NewDocumentCommand \xbs    { } { \CJKfamily { zhxbs  } \enxbs  }
+\ctex_set_font_size:Nnn \normalsize   {  3 } { }
+\ctex_set_font_size:Nnn \small        { -3 } { }
+\ctex_set_font_size:Nnn \footnotesize {  4 } { }
+\ctex_set_font_size:Nnn \scriptsize   { -4 } { }
+\ctex_set_font_size:Nnn \tiny  {  5 } { }
+\ctex_set_font_size:Nnn \large { -2 } { }
+\ctex_set_font_size:Nnn \Large {  2 } { }
+\ctex_set_font_size:Nnn \LARGE { -1 } { }
+\ctex_set_font_size:Nnn \huge  {  1 } { }
+\ctex_set_font_size:Nnn \Huge  { -0 } { }
+\ExplSyntaxOff
+\makeatother
+
+\RequirePackage{zhlipsum}
+\RequirePackage{calc}
+\RequirePackage{tabularx,booktabs}
+\setlength{\heavyrulewidth}{0.35mm}
+\setlength{\lightrulewidth}{0.25mm}
+\RequirePackage{xeCJKfntef}
+\RequirePackage[cmyk]{xcolor}
+\definecolor{red}{cmyk}{0,0.8,0.8,0}
+\RequirePackage{geometry}
+\geometry{
+  a4paper,
+  top         = 37 mm,
+  inner       = 28 mm,
+  textwidth   = 156 mm,
+  textheight  = 225 mm,
+  footskip    = 8.93 mm,
+  % showframe,
+}
+
+
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[LE]{\songti\footnotesize\hspace*{\ccwd}—~\thepage~—}
+\fancyfoot[RO]{\songti\footnotesize —~\thepage~—\hspace*{\ccwd}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% \RequirePackage{enumitem}
+% \setlist[enumerate,1]{itemsep=0pt,topsep=0pt,labelwidth=5pt}
+
+\ctexset{
+  secnumdepth = 4,
+  section       = {
+    format      = {\heiti},
+    name        = {,、},
+    number      = \chinese{section},
+    aftername   = {},
+    hang        = false,
+    indent      = 2\ccwd,
+    beforeskip  = \baselineskip - \ccwd,
+    afterskip   = \baselineskip - \ccwd,
+    fixskip     = true,
+  },
+  subsection    = {
+    format      = {\kaishu},
+    name        = {（,）},
+    number      = \chinese{subsection},
+    aftername   = {},
+    hang        = false,
+    indent      = 2\ccwd,
+    beforeskip  = \baselineskip - \ccwd,
+    afterskip   = \baselineskip - \ccwd,
+    fixskip     = true,
+  },
+  subsubsection = {
+    format      = {},
+    name        = {,.},
+    number      = \arabic{subsubsection},
+    aftername   = {},
+    hang        = false,
+    indent      = 2\ccwd,
+    beforeskip  = \baselineskip - \ccwd,
+    afterskip   = \baselineskip - \ccwd,
+    fixskip     = true,
+  },
+  paragraph     = {
+    format      = {},
+    name        = {（,）},
+    number      = \arabic{paragraph},
+    aftername   = {},
+    hang        = false,
+    indent      = 2\ccwd,
+    beforeskip  = \baselineskip - \ccwd,
+    afterskip   = \baselineskip - \ccwd,
+    fixskip     = true,
+  },
+}
