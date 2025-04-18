@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.4.26)  17 APR 2025 22:48
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.4.26)  18 APR 2025 18:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -576,7 +576,8 @@ File: xunicode.sty 2011/09/09 v0.981 provides access to latin accents and many o
 *** Reloading Xunicode for encoding 'TU' ***
 ) (d:/texlive/2023/texmf-dist/tex/xelatex/xecjk/xunicode-extra.def
 File: xunicode-extra.def 2022/08/05 v3.9.1 extra definition for xunicode
-) (./RedHead.aux)
+)
+No file RedHead.aux.
 \openout1 = `RedHead.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
@@ -597,7 +598,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 9.
 LaTeX Font Info:    Trying to load font information for T3+cmr on input line 9.
- (d:/texlive/2023/texmf-dist/tex/latex/tipa/t3cmr.fd
+(d:/texlive/2023/texmf-dist/tex/latex/tipa/t3cmr.fd
 File: t3cmr.fd 2001/12/31 TIPA font definitions
 )
 LaTeX Font Info:    ... okay on input line 9.
@@ -766,13 +767,6 @@ Package fontspec Info: Font family 'FandolKai(1)' created for font 'FandolKai'
 (fontspec)             <->"FandolKai/OT:language=dflt;"
 (fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
 
-\txtwd=\skip77
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <16.06> on input line 82.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.05249> on input line 82.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.53937> on input line 82.
 
 Package fontspec Warning: Font "FandolSong" does not contain requested Script
 (fontspec)                "CJK".
@@ -800,8 +794,16 @@ Package fontspec Info: Font family 'FandolSong(1)' created for font
 
 [1
 
-] [2] [3]
-Underfull \hbox (badness 10000) in alignment at lines 133--133
+]
+\txtwd=\skip77
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <16.06> on input line 90.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.05249> on input line 90.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.53937> on input line 90.
+ [2] [3]
+Underfull \hbox (badness 10000) in alignment at lines 141--141
 [] 
  []
 
@@ -809,10 +811,10 @@ Underfull \hbox (badness 10000) in alignment at lines 133--133
 
 ] (./RedHead.aux) ) 
 Here is how much of TeX's memory you used:
- 16214 strings out of 478630
- 375459 string characters out of 5847730
- 1852012 words of memory out of 5000000
- 36116 multiletter control sequences out of 15000+600000
+ 16211 strings out of 478630
+ 375428 string characters out of 5847730
+ 1851012 words of memory out of 5000000
+ 36115 multiletter control sequences out of 15000+600000
  521075 words of font info for 136 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  89i,11n,97p,1190b,485s stack positions out of 10000i,1000n,20000p,200000b,200000s
