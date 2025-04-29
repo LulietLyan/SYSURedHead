@@ -1,17 +1,43 @@
-<h1 align="center">SYSURedHead</h1>
+<img src="./image/line-neon.gif" width=100%><br>
+
+<div id="user-content-toc">
+  <ul align="center">
+    <summary><h1 style="display: inline-block"><b>🔴 SYSURedHead</b></h1></summary>
+    <a href="https://github.com/LulietLyan/SYSURedHead"><strong>查看文档 »</strong></a>
+    <br />
+    <a href="https://github.com/LulietLyan/SYSURedHead">演示</a>
+    &middot;
+    <a href="https://github.com/LulietLyan/SYSURedHead/issues/new?labels=bug&template=bug-report---.md">问题上报</a>
+    &middot;
+    <a href="https://github.com/LulietLyan/SYSURedHead/issues/new?labels=enhancement&template=feature-request---.md">特性</a>
+  </ul>
+</div>
 
 <p align="center"> 
-  <a href="https://github.com/LulietLyan?tab=followers"> <img src="https://img.shields.io/github/followers/LulietLyan?label=Followers&style=for-the-badge&color=purple" height="25px" alt="github follow" > </a>
-  <a href="https://github.com/LulietLyan/SYSURedHead?tab=stars"> <img src="https://img.shields.io/github/stars/LulietLyan/SYSURedHead?label=Stars&style=for-the-badge" height="25px" alt="github repo stars" > </a>
-  <a href="https://github.com/LulietLyan/InterviewBasic"> <img src="https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge" height="25px" alt="github repo stars" > </a>
-  <a href="https://github.com/LulietLyan/SYSURedHead"> <img src="https://img.shields.io/badge/latex-%23008080.svg?style=for-the-badge&logo=latex&logoColor=white" height="25px" alt="github repo stars" > </a>
-</p> 
+    <img src="https://img.shields.io/github/followers/LulietLyan?label=Followers&style=for-the-badge&color=purple"alt="github follow"/>
+    <img src="https://img.shields.io/github/stars/LulietLyan/SYSURedHead?label=Stars&style=for-the-badge"
+    alt="github repo stars" >
+    <img src="https://img.shields.io/github/contributors/LulietLyan/SYSURedHead?style=for-the-badge&logoColor=%23985684"
+    alt="contributors" >
+    <img src="https://img.shields.io/github/issues-pr/LulietLyan/SYSURedHead?style=for-the-badge&color=%23985684"
+    alt="issues-pr" >
+    <img src="https://img.shields.io/github/issues/LulietLyan/SYSURedHead?style=for-the-badge&color=%23777777" 
+    alt="issues" >
+    <img src="https://img.shields.io/github/forks/LulietLyan/SYSURedHead?style=for-the-badge&color=%23187777" 
+    alt="forks" >
+    <img src="https://img.shields.io/github/license/LulietLyan/SYSURedHead?style=for-the-badge"
+    alt="license" >
+</p>
 
----
----
+<p align="center"> 
+<a href="https://github.com/LulietLyan/SYSURedHead"><img src="./image/SYSU.svg" height=50pt alt="lulietlyan" /></a>
+<a href="https://github.com/LulietLyan/SYSURedHead"><img src="./image/NSCC-GZ.svg" height=50pt alt="lulietlyan" /></a>
+</p>
 
-# Contents
-- [Contents](#contents)
+<img src="./image/line-neon.gif" width=100%><br>
+
+# 📕 Contents
+- [📕 Contents](#-contents)
 - [🤔 Introduction](#-introduction)
 - [🤩 Quick Start](#-quick-start)
 - [❗ Declaration](#-declaration)
@@ -23,8 +49,8 @@
 
 # 🤩 Quick Start
 
-- **Overleaf**：您可以前往 [Overleaf](https://www.overleaf.com/) 导入压缩包开始进行文档代码编写
-- **本地运行**：作者习惯在本地编写 LaTeX 代码，具体可参考 [VSCode 配置 LaTeX 环境](https://zhuanlan.zhihu.com/p/166523064)
+- **Overleaf**：您可以在下载[项目压缩包](https://github.com/LulietLyan/SYSURedHead/archive/refs/heads/main.zip)后前往 [Overleaf](https://www.overleaf.com/) 导入压缩包开始进行文档代码编写
+- **本地运行**：作者习惯在本地编写 LaTeX 代码。具体的环境配置可参考现有的各种博客如 [VSCode 配置 LaTeX 环境](https://zhuanlan.zhihu.com/p/166523064)
 
 # ❗ Declaration
 
@@ -33,3 +59,5 @@
 # ⭐ Star
 
 如果您喜欢本项目，别忘了给作者一个 Star 😭
+
+<img src="./image/line-neon.gif" width=100%><br>
