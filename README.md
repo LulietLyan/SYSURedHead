@@ -47,6 +47,11 @@
 
 **SYSURedHead** 是一款以党政机关红头文件为主题的作业报告 LaTeX 模板
 
+# 🤯 Where can I use it?
+
+- **形势与政策、国家安全教育、劳动教育**: 每个学期都要写一份报告，不妨以最红的风格为您的辅导员交上一份满意的作业！
+- **思政课作业**: 大多数思政课都要写报告，您也可以在此处大展身手。
+
 # 🤩 Quick Start
 
 - **Overleaf**：您可以在下载[项目压缩包](https://github.com/LulietLyan/SYSURedHead/archive/refs/heads/main.zip)后前往 [Overleaf](https://www.overleaf.com/) 导入压缩包开始进行文档代码编写
