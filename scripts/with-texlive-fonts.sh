@@ -41,4 +41,3 @@ FONTCONFIG_FILE="$config_file" "$@"
 status=$?
 set -e
 exit "$status"
-
