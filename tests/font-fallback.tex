@@ -1,0 +1,15 @@
+\documentclass{sysuredhead}
+\RedHeadSetMarkFont{SYSURedHead-Definitely-Missing-Font}
+
+\RedHeadSetup{
+  layout = normal,
+  mark = {字体回退测试},
+  title = {字体回退测试},
+  draft-label = {测试文档，不具公文效力}
+}
+
+\begin{document}
+\RedHeadMakeHead
+可选机关标志字体不存在时，本文仍应使用 Fandol 回退字体构建。
+\end{document}
+
