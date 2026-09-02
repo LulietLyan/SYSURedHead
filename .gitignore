@@ -1,0 +1,21 @@
+# Keep rendered previews for GitHub, ignore everything else in build/
+/build/*
+!/build/*.pdf
+
+# Editor and operating-system files
+*.bak
+*.swp
+*~
+.DS_Store
+
+# New LaTeX intermediates created outside build/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.xdv
