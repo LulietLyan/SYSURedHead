@@ -1,0 +1,20 @@
+{
+  "name": "sysu-redhead",
+  "interface": {
+    "displayName": "SYSURedHead 本地插件"
+  },
+  "plugins": [
+    {
+      "name": "sysu-redhead",
+      "source": {
+        "source": "local",
+        "path": "./plugins/sysu-redhead"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
