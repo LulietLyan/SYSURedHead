@@ -1,0 +1,524 @@
+\NeedsTeXFormat{LaTeX2e}[2020-10-01]
+\ProvidesExplPackage
+  {sysuredhead-components}
+  {2026-09-02}
+  {2.0.0}
+  {Semantic components for SYSURedHead documents}
+
+\RequirePackage{xparse}
+\RequirePackage{xcolor}
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
+\RequirePackage{calc}
+\RequirePackage{xeCJKfntef}
+
+\providecolor{sysuredhead-red}{cmyk}{0,0.8,0.8,0}
+\ProvideDocumentCommand \RedHeadMarkFont { } { \heiti }
+
+\ExplSyntaxOn
+
+\tl_new:N \l__sysuredhead_layout_tl
+\tl_new:N \l__sysuredhead_direction_tl
+\tl_new:N \l__sysuredhead_copy_number_tl
+\tl_new:N \l__sysuredhead_classification_tl
+\tl_new:N \l__sysuredhead_classification_period_tl
+\tl_new:N \l__sysuredhead_urgency_tl
+\tl_new:N \l__sysuredhead_authority_tl
+\tl_new:N \l__sysuredhead_coauthorities_tl
+\tl_new:N \l__sysuredhead_mark_tl
+\tl_new:N \l__sysuredhead_document_number_tl
+\tl_new:N \l__sysuredhead_signer_tl
+\tl_new:N \l__sysuredhead_signer_title_tl
+\tl_new:N \l__sysuredhead_title_tl
+\tl_new:N \l__sysuredhead_recipients_tl
+\tl_new:N \l__sysuredhead_issuer_tl
+\tl_new:N \l__sysuredhead_date_tl
+\tl_new:N \l__sysuredhead_note_tl
+\tl_new:N \l__sysuredhead_copies_tl
+\tl_new:N \l__sysuredhead_print_office_tl
+\tl_new:N \l__sysuredhead_print_date_tl
+\tl_new:N \l__sysuredhead_order_number_tl
+\tl_new:N \l__sysuredhead_meeting_name_tl
+\tl_new:N \l__sysuredhead_draft_label_tl
+\tl_new:N \l__sysuredhead_seal_tl
+\bool_new:N \l__sysuredhead_closing_content_bool
+
+\msg_new:nnn { sysuredhead } { missing-signer }
+  {
+    Upward~document~configuration~is~missing~the~required~
+    'signer'~field~(签发人).
+  }
+\msg_new:nnn { sysuredhead } { missing-copy-number }
+  {
+    Classified~document~configuration~is~missing~the~required~
+    'copy-number'~field~(份号).
+  }
+
+\keys_define:nn { redhead }
+  {
+    layout .choice:,
+    layout / normal  .code:n =
+      { \tl_set:Nn \l__sysuredhead_layout_tl { normal } },
+    layout / letter  .code:n =
+      { \tl_set:Nn \l__sysuredhead_layout_tl { letter } },
+    layout / order   .code:n =
+      { \tl_set:Nn \l__sysuredhead_layout_tl { order } },
+    layout / minutes .code:n =
+      { \tl_set:Nn \l__sysuredhead_layout_tl { minutes } },
+    layout / campus  .code:n =
+      { \tl_set:Nn \l__sysuredhead_layout_tl { campus } },
+
+    direction .choice:,
+    direction / down     .code:n =
+      { \tl_set:Nn \l__sysuredhead_direction_tl { down } },
+    direction / up       .code:n =
+      { \tl_set:Nn \l__sysuredhead_direction_tl { up } },
+    direction / parallel .code:n =
+      { \tl_set:Nn \l__sysuredhead_direction_tl { parallel } },
+
+    classification .choice:,
+    classification / .code:n =
+      { \tl_clear:N \l__sysuredhead_classification_tl },
+    classification / none .code:n =
+      { \tl_clear:N \l__sysuredhead_classification_tl },
+    classification / 秘密 .code:n =
+      { \tl_set:Nn \l__sysuredhead_classification_tl { 秘密 } },
+    classification / 机密 .code:n =
+      { \tl_set:Nn \l__sysuredhead_classification_tl { 机密 } },
+    classification / 绝密 .code:n =
+      { \tl_set:Nn \l__sysuredhead_classification_tl { 绝密 } },
+
+    urgency .choice:,
+    urgency / .code:n = { \tl_clear:N \l__sysuredhead_urgency_tl },
+    urgency / none .code:n = { \tl_clear:N \l__sysuredhead_urgency_tl },
+    urgency / 加急 .code:n =
+      { \tl_set:Nn \l__sysuredhead_urgency_tl { 加急 } },
+    urgency / 特急 .code:n =
+      { \tl_set:Nn \l__sysuredhead_urgency_tl { 特急 } },
+
+    seal .choice:,
+    seal / none .code:n =
+      { \tl_set:Nn \l__sysuredhead_seal_tl { none } },
+    seal / placeholder .code:n =
+      { \tl_set:Nn \l__sysuredhead_seal_tl { placeholder } },
+
+    copy-number           .tl_set:N = \l__sysuredhead_copy_number_tl,
+    classification-period .tl_set:N = \l__sysuredhead_classification_period_tl,
+    authority             .tl_set:N = \l__sysuredhead_authority_tl,
+    coauthorities         .tl_set:N = \l__sysuredhead_coauthorities_tl,
+    mark                  .tl_set:N = \l__sysuredhead_mark_tl,
+    document-number       .tl_set:N = \l__sysuredhead_document_number_tl,
+    signer                .tl_set:N = \l__sysuredhead_signer_tl,
+    signer-title          .tl_set:N = \l__sysuredhead_signer_title_tl,
+    title                 .tl_set:N = \l__sysuredhead_title_tl,
+    recipients            .tl_set:N = \l__sysuredhead_recipients_tl,
+    issuer                .tl_set:N = \l__sysuredhead_issuer_tl,
+    date                  .tl_set:N = \l__sysuredhead_date_tl,
+    note                  .tl_set:N = \l__sysuredhead_note_tl,
+    copies                .tl_set:N = \l__sysuredhead_copies_tl,
+    print-office          .tl_set:N = \l__sysuredhead_print_office_tl,
+    print-date            .tl_set:N = \l__sysuredhead_print_date_tl,
+    order-number          .tl_set:N = \l__sysuredhead_order_number_tl,
+    meeting-name          .tl_set:N = \l__sysuredhead_meeting_name_tl,
+    draft-label           .tl_set:N = \l__sysuredhead_draft_label_tl,
+  }
+
+\keys_set:nn { redhead }
+  {
+    layout = normal,
+    direction = down,
+    seal = none
+  }
+
+\NewDocumentCommand \RedHeadSetup { m }
+  { \keys_set:nn { redhead } {#1} }
+
+\cs_new_protected:Npn \__sysuredhead_validate:
+  {
+    \tl_if_eq:NnT \l__sysuredhead_direction_tl { up }
+      {
+        \tl_if_blank:VT \l__sysuredhead_signer_tl
+          { \msg_warning:nn { sysuredhead } { missing-signer } }
+      }
+    \tl_if_blank:VF \l__sysuredhead_classification_tl
+      {
+        \tl_if_blank:VT \l__sysuredhead_copy_number_tl
+          { \msg_warning:nn { sysuredhead } { missing-copy-number } }
+      }
+  }
+
+\NewDocumentCommand \RedHeadValidate { }
+  { \__sysuredhead_validate: }
+
+\cs_new_protected:Npn \__sysuredhead_print_draft_label:
+  {
+    \tl_if_blank:VF \l__sysuredhead_draft_label_tl
+      {
+        \par\noindent\hfill
+        \group_begin:
+          \small\heiti\color{sysuredhead-red}
+          \fbox{\strut \tl_use:N \l__sysuredhead_draft_label_tl}
+        \group_end:
+        \par\addvspace{.5\baselineskip}
+      }
+  }
+
+\cs_new_protected:Npn \__sysuredhead_print_metadata:
+  {
+    \bool_set_false:N \l_tmpa_bool
+    \tl_if_blank:VF \l__sysuredhead_copy_number_tl
+      { \bool_set_true:N \l_tmpa_bool }
+    \tl_if_blank:VF \l__sysuredhead_classification_tl
+      { \bool_set_true:N \l_tmpa_bool }
+    \tl_if_blank:VF \l__sysuredhead_urgency_tl
+      { \bool_set_true:N \l_tmpa_bool }
+    \bool_if:NT \l_tmpa_bool
+      {
+        \noindent
+        \begin{minipage}[t]{.58\linewidth}
+          \raggedright\small\heiti
+          \tl_if_blank:VF \l__sysuredhead_copy_number_tl
+            { 份号：\tl_use:N \l__sysuredhead_copy_number_tl \par }
+          \tl_if_blank:VF \l__sysuredhead_classification_tl
+            {
+              密级：\tl_use:N \l__sysuredhead_classification_tl
+              \tl_if_blank:VF \l__sysuredhead_classification_period_tl
+                { \quad 期限：\tl_use:N \l__sysuredhead_classification_period_tl }
+              \par
+            }
+        \end{minipage}%
+        \begin{minipage}[t]{.42\linewidth}
+          \raggedleft\small\heiti\color{sysuredhead-red}
+          \tl_if_blank:VF \l__sysuredhead_urgency_tl
+            { 紧急程度：\tl_use:N \l__sysuredhead_urgency_tl \par }
+        \end{minipage}
+        \par\addvspace{\baselineskip}
+      }
+  }
+
+\cs_new_protected:Npn \__sysuredhead_print_coauthorities:
+  {
+    \tl_if_blank:VF \l__sysuredhead_coauthorities_tl
+      {
+        \tl_set:NV \l_tmpa_tl \l__sysuredhead_coauthorities_tl
+        \tl_replace_all:Nnn \l_tmpa_tl { ； } { \par }
+        \tl_replace_all:Nnn \l_tmpa_tl { ; } { \par }
+        \par\tl_use:N \l_tmpa_tl
+      }
+  }
+
+\cs_new_protected:Npn \__sysuredhead_print_mark:
+  {
+    \par
+    \group_begin:
+      \centering\color{sysuredhead-red}\RedHeadMarkFont
+      \fontsize{34bp}{40bp}\selectfont
+      \tl_if_blank:VTF \l__sysuredhead_mark_tl
+        { \tl_use:N \l__sysuredhead_authority_tl }
+        { \tl_use:N \l__sysuredhead_mark_tl }
+      \__sysuredhead_print_coauthorities:
+      \par
+    \group_end:
+    \addvspace{.75\baselineskip}
+  }
+
+\cs_new_protected:Npn \__sysuredhead_print_rule:
+  {
+    \noindent
+    \group_begin:
+      \color{sysuredhead-red}\rule{\linewidth}{1pt}
+    \group_end:
+    \par
+  }
+
+\cs_new_protected:Npn \__sysuredhead_print_number_and_signer:
+  {
+    \tl_if_eq:NnTF \l__sysuredhead_direction_tl { up }
+      {
+        \noindent
+        \begin{tabularx}{\linewidth}{@{}Xr@{}}
+          \tl_use:N \l__sysuredhead_document_number_tl
+          &
+          \tl_if_blank:VF \l__sysuredhead_signer_tl
+            { 签发人：{\kaishu \tl_use:N \l__sysuredhead_signer_tl} }
+        \end{tabularx}
+        \par
+      }
+      {
+        \tl_if_blank:VF \l__sysuredhead_document_number_tl
+          {
+            \par
+            { \centering\small \tl_use:N \l__sysuredhead_document_number_tl \par }
+          }
+      }
+  }
+
+\cs_new_protected:Npn \__sysuredhead_print_title_and_recipients:
+  {
+    \tl_if_blank:VF \l__sysuredhead_title_tl
+      {
+        \par\addvspace{1.5\baselineskip}
+        \group_begin:
+          \centering\heiti\zihao{2}
+          \tl_use:N \l__sysuredhead_title_tl\par
+        \group_end:
+      }
+    \tl_if_blank:VF \l__sysuredhead_recipients_tl
+      {
+        \par\addvspace{\baselineskip}
+        \noindent\tl_use:N \l__sysuredhead_recipients_tl\par
+      }
+    \addvspace{\baselineskip}
+  }
+
+\cs_new_protected:Npn \__sysuredhead_make_normal_head:
+  {
+    \__sysuredhead_print_metadata:
+    \__sysuredhead_print_mark:
+    \__sysuredhead_print_number_and_signer:
+    \addvspace{.35\baselineskip}
+    \__sysuredhead_print_rule:
+    \__sysuredhead_print_title_and_recipients:
+  }
+
+\cs_new_protected:Npn \__sysuredhead_make_letter_head:
+  {
+    \__sysuredhead_print_metadata:
+    \__sysuredhead_print_rule:
+    \addvspace{.5\baselineskip}
+    \noindent
+    \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xr@{}}
+      {\color{sysuredhead-red}\RedHeadMarkFont\zihao{1}
+        \tl_if_blank:VTF \l__sysuredhead_mark_tl
+          { \tl_use:N \l__sysuredhead_authority_tl }
+          { \tl_use:N \l__sysuredhead_mark_tl }}
+      & \tl_use:N \l__sysuredhead_document_number_tl
+    \end{tabularx}
+    \par\addvspace{.35\baselineskip}
+    \__sysuredhead_print_rule:
+    \__sysuredhead_print_title_and_recipients:
+  }
+
+\cs_new_protected:Npn \__sysuredhead_make_order_head:
+  {
+    \__sysuredhead_print_metadata:
+    \par
+    \group_begin:
+      \centering\color{sysuredhead-red}\RedHeadMarkFont
+      \fontsize{34bp}{40bp}\selectfont
+      \tl_if_blank:VTF \l__sysuredhead_mark_tl
+        {
+          \tl_use:N \l__sysuredhead_authority_tl
+          \tl_if_blank:VF \l__sysuredhead_authority_tl { 令 }
+        }
+        { \tl_use:N \l__sysuredhead_mark_tl }
+      \par
+      \tl_if_blank:VF \l__sysuredhead_order_number_tl
+        { \vspace{.5\baselineskip}{\small\songti
+            \tl_use:N \l__sysuredhead_order_number_tl\par} }
+    \group_end:
+    \addvspace{.5\baselineskip}
+    \__sysuredhead_print_rule:
+    \__sysuredhead_print_title_and_recipients:
+  }
+
+\cs_new_protected:Npn \__sysuredhead_make_minutes_head:
+  {
+    \__sysuredhead_print_metadata:
+    \par
+    \group_begin:
+      \centering\color{sysuredhead-red}\RedHeadMarkFont
+      \fontsize{30bp}{36bp}\selectfont
+      \tl_if_blank:VTF \l__sysuredhead_meeting_name_tl
+        {
+          \tl_if_blank:VTF \l__sysuredhead_mark_tl
+            { \tl_use:N \l__sysuredhead_authority_tl \ 会议纪要 }
+            { \tl_use:N \l__sysuredhead_mark_tl }
+        }
+        { \tl_use:N \l__sysuredhead_meeting_name_tl }
+      \par
+    \group_end:
+    \__sysuredhead_print_number_and_signer:
+    \addvspace{.35\baselineskip}
+    \__sysuredhead_print_rule:
+    \__sysuredhead_print_title_and_recipients:
+  }
+
+\cs_new_protected:Npn \__sysuredhead_make_campus_head:
+  {
+    \__sysuredhead_print_metadata:
+    \__sysuredhead_print_mark:
+    \__sysuredhead_print_number_and_signer:
+    \addvspace{.35\baselineskip}
+    \__sysuredhead_print_rule:
+    \__sysuredhead_print_title_and_recipients:
+  }
+
+\NewDocumentCommand \RedHeadMakeHead { }
+  {
+    \__sysuredhead_validate:
+    \__sysuredhead_print_draft_label:
+    \str_case:Vn \l__sysuredhead_layout_tl
+      {
+        { normal }  { \__sysuredhead_make_normal_head: }
+        { letter }  { \__sysuredhead_make_letter_head: }
+        { order }   { \__sysuredhead_make_order_head: }
+        { minutes } { \__sysuredhead_make_minutes_head: }
+        { campus }  { \__sysuredhead_make_campus_head: }
+      }
+  }
+
+\NewDocumentCommand \RedHeadSealPlaceholder { }
+  {
+    \par\addvspace{.5\baselineskip}
+    \group_begin:
+      \centering\small\heiti\color{sysuredhead-red}
+      \fbox{\parbox[c][3.4\ccwd][c]{8\ccwd}
+        {\centering 印章位置占位\par（非印章）}}
+      \par
+    \group_end:
+    \addvspace{.5\baselineskip}
+  }
+
+\NewDocumentCommand \RedHeadNote { m }
+  {
+    \tl_if_blank:nF {#1}
+      {
+        \par\addvspace{\baselineskip}
+        \noindent\hspace*{2\ccwd}（#1）\par
+      }
+  }
+
+\cs_new_protected:Npn \__sysuredhead_print_closing_identity:
+  {
+    \tl_if_eq:NnTF \l__sysuredhead_layout_tl { order }
+      {
+        \tl_if_blank:VF \l__sysuredhead_signer_title_tl
+          { \tl_use:N \l__sysuredhead_signer_title_tl \par }
+        \tl_if_blank:VTF \l__sysuredhead_signer_tl
+          {
+            \tl_if_blank:VTF \l__sysuredhead_issuer_tl
+              { \tl_use:N \l__sysuredhead_authority_tl }
+              { \tl_use:N \l__sysuredhead_issuer_tl }
+          }
+          { \tl_use:N \l__sysuredhead_signer_tl }
+      }
+      {
+        \tl_if_blank:VTF \l__sysuredhead_issuer_tl
+          { \tl_use:N \l__sysuredhead_authority_tl }
+          { \tl_use:N \l__sysuredhead_issuer_tl }
+      }
+  }
+
+\cs_new_protected:Npn \__sysuredhead_make_closing:
+  {
+    \bool_set_false:N \l__sysuredhead_closing_content_bool
+    \tl_if_blank:VF \l__sysuredhead_issuer_tl
+      { \bool_set_true:N \l__sysuredhead_closing_content_bool }
+    \tl_if_blank:VF \l__sysuredhead_authority_tl
+      { \bool_set_true:N \l__sysuredhead_closing_content_bool }
+    \tl_if_blank:VF \l__sysuredhead_signer_tl
+      { \bool_set_true:N \l__sysuredhead_closing_content_bool }
+    \tl_if_blank:VF \l__sysuredhead_signer_title_tl
+      { \bool_set_true:N \l__sysuredhead_closing_content_bool }
+    \tl_if_blank:VF \l__sysuredhead_date_tl
+      { \bool_set_true:N \l__sysuredhead_closing_content_bool }
+    \tl_if_eq:NnT \l__sysuredhead_seal_tl { placeholder }
+      { \bool_set_true:N \l__sysuredhead_closing_content_bool }
+
+    \bool_if:NT \l__sysuredhead_closing_content_bool
+      {
+        \par\addvspace{2\baselineskip}
+        \noindent\hfill
+        \begin{minipage}{.52\linewidth}
+          \centering
+          \__sysuredhead_print_closing_identity:\par
+          \tl_if_eq:NnT \l__sysuredhead_seal_tl { placeholder }
+            { \RedHeadSealPlaceholder }
+          \tl_if_blank:VF \l__sysuredhead_date_tl
+            { \tl_use:N \l__sysuredhead_date_tl \par }
+        \end{minipage}
+        \par
+      }
+    \tl_if_blank:VF \l__sysuredhead_note_tl
+      { \RedHeadNote{\tl_use:N \l__sysuredhead_note_tl} }
+  }
+
+\NewDocumentCommand \RedHeadMakeClosing { }
+  { \__sysuredhead_make_closing: }
+
+\newcounter{redheadattachmentitem}
+\NewDocumentEnvironment { RedHeadAttachments } { }
+  {
+    \par\addvspace{\baselineskip}
+    \noindent\hspace*{2\ccwd}附件：\par
+    \begin{list}{\arabic{redheadattachmentitem}.}
+      {
+        \usecounter{redheadattachmentitem}
+        \setlength{\leftmargin}{6\ccwd}
+        \setlength{\labelwidth}{2\ccwd}
+        \setlength{\labelsep}{.5\ccwd}
+        \setlength{\itemindent}{0pt}
+        \setlength{\listparindent}{0pt}
+        \setlength{\topsep}{0pt}
+        \setlength{\partopsep}{0pt}
+        \setlength{\parsep}{0pt}
+        \setlength{\itemsep}{0pt}
+      }
+  }
+  { \end{list}\par }
+
+\NewDocumentEnvironment { RedHeadAttachment } { m m }
+  {
+    \clearpage
+    \noindent{\heiti 附件#1}\par
+    \addvspace{\baselineskip}
+    \group_begin:
+      \centering\heiti\zihao{2}#2\par
+    \group_end:
+    \addvspace{\baselineskip}
+    \ignorespaces
+  }
+  { \par\ignorespacesafterend }
+
+\NewDocumentCommand \RedHeadMeetingList { m m }
+  {
+    \par\addvspace{.5\baselineskip}
+    \noindent\hspace*{2\ccwd}
+    \hangindent=6\ccwd\hangafter=1
+    {\heiti #1：}#2\par
+  }
+
+\cs_new_protected:Npn \__sysuredhead_make_imprint:
+  {
+    \par\vspace*{\fill}
+    \group_begin:
+      \footnotesize
+      \noindent
+      \begin{tabularx}{\linewidth}{@{\hspace{\ccwd}}X@{\hspace{\ccwd}}}
+        \toprule
+        \tl_if_blank:VF \l__sysuredhead_copies_tl
+          {
+            \strut 抄送：\tl_use:N \l__sysuredhead_copies_tl
+            \tabularnewline
+            \midrule
+          }
+        \strut
+        \tl_if_blank:VF \l__sysuredhead_print_office_tl
+          { \tl_use:N \l__sysuredhead_print_office_tl }
+        \hfill
+        \tl_if_blank:VF \l__sysuredhead_print_date_tl
+          { \tl_use:N \l__sysuredhead_print_date_tl\ 印发 }
+        \tabularnewline
+        \bottomrule
+      \end{tabularx}
+    \group_end:
+    \par
+  }
+
+\NewDocumentCommand \RedHeadMakeImprint { }
+  { \__sysuredhead_make_imprint: }
+
+\ExplSyntaxOff
+
+\endinput
