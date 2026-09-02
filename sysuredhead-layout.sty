@@ -1,0 +1,96 @@
+%% Page and heading layout for SYSURedHead
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesPackage{sysuredhead-layout}
+  [2026/09/02 v2.0.0 Page and heading layout for SYSURedHead]
+
+\RequirePackage{xcolor}
+\definecolor{sysuredhead-red}{cmyk}{0,0.80,0.80,0}
+
+\RequirePackage{geometry}
+\geometry{
+  a4paper,
+  top=37mm,
+  inner=28mm,
+  textwidth=156mm,
+  textheight=225mm,
+  footskip=8.93mm
+}
+
+\setlength{\parindent}{2\ccwd}
+\setlength{\parskip}{0pt}
+\AtBeginDocument{\fontsize{16bp}{29.6bp}\selectfont\RedHeadBodyFont}
+
+\RequirePackage{fancyhdr}
+\makeatletter
+\newcommand*\sysuredhead@pagenumber{%
+  \RedHeadPageNumberFont\zihao{4}—\nobreakspace\thepage\nobreakspace—%
+}
+\newcommand*\sysuredhead@setpagestyle{%
+  \fancyhf{}%
+  \if@twoside
+    \fancyfoot[LE]{\hspace*{\ccwd}\sysuredhead@pagenumber}%
+    \fancyfoot[RO]{\sysuredhead@pagenumber\hspace*{\ccwd}}%
+  \else
+    \fancyfoot[R]{\sysuredhead@pagenumber\hspace*{\ccwd}}%
+  \fi
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+\pagestyle{fancy}
+\sysuredhead@setpagestyle
+\fancypagestyle{plain}{\sysuredhead@setpagestyle}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\ctexset{
+  section={
+    format={\RedHeadLevelOneFont\zihao{3}},
+    name={,、},
+    number=\chinese{section},
+    aftername={},
+    hang=false,
+    indent=2\ccwd,
+    beforeskip=\baselineskip-\ccwd,
+    afterskip=\baselineskip-\ccwd,
+    afterindent=true,
+    fixskip=true
+  },
+  subsection={
+    format={\RedHeadLevelTwoFont\zihao{3}},
+    name={（,）},
+    number=\chinese{subsection},
+    aftername={},
+    hang=false,
+    indent=2\ccwd,
+    beforeskip=\baselineskip-\ccwd,
+    afterskip=\baselineskip-\ccwd,
+    afterindent=true,
+    fixskip=true
+  },
+  subsubsection={
+    format={\RedHeadLevelThreeFont\zihao{3}},
+    name={,.},
+    number=\arabic{subsubsection},
+    aftername={},
+    hang=false,
+    indent=2\ccwd,
+    beforeskip=\baselineskip-\ccwd,
+    afterskip=\baselineskip-\ccwd,
+    afterindent=true,
+    fixskip=true
+  },
+  paragraph={
+    format={\RedHeadLevelFourFont\zihao{3}},
+    name={（,）},
+    number=\arabic{paragraph},
+    aftername={},
+    hang=false,
+    indent=2\ccwd,
+    beforeskip=\baselineskip-\ccwd,
+    afterskip=\baselineskip-\ccwd,
+    afterindent=true,
+    fixskip=true
+  }
+}
+
+\endinput
