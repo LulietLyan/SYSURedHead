@@ -1,0 +1,63 @@
+%% Font setup for SYSURedHead
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesExplPackage{sysuredhead-fonts}
+  {2026/09/02}{2.0.0}{Font setup for SYSURedHead}
+
+\RequirePackage{iftex}
+\ifXeTeX\else
+  \PackageError{sysuredhead-fonts}
+    {The sysuredhead font module requires XeLaTeX}
+    {Compile this document with XeLaTeX.}
+\fi
+\RequirePackage{fontspec}
+\RequirePackage{xeCJK}
+
+\ExplSyntaxOn
+
+\tl_const:Nn \c__sysuredhead_mark_fallback_tl { FandolSong-Bold.otf }
+\tl_new:N \g__sysuredhead_mark_font_tl
+\tl_gset_eq:NN
+  \g__sysuredhead_mark_font_tl
+  \c__sysuredhead_mark_fallback_tl
+
+\msg_new:nnn { sysuredhead-fonts } { mark-font-missing }
+  {
+    Mark~font~'#1'~was~not~found;~using~the~bundled~Fandol~fallback~instead.
+  }
+
+\cs_new_protected:Npn \__sysuredhead_mark_font:
+  {
+    \exp_args:NV \fontspec \g__sysuredhead_mark_font_tl
+    \exp_args:NV \CJKfontspec \g__sysuredhead_mark_font_tl
+  }
+
+\NewDocumentCommand \RedHeadSetMarkFont { m }
+  {
+    \IfFontExistsTF {#1}
+      { \tl_gset:Nn \g__sysuredhead_mark_font_tl {#1} }
+      {
+        \tl_gset_eq:NN
+          \g__sysuredhead_mark_font_tl
+          \c__sysuredhead_mark_fallback_tl
+        \msg_warning:nnn { sysuredhead-fonts } { mark-font-missing } {#1}
+      }
+  }
+
+\NewDocumentCommand \RedHeadMarkFont       { } { \__sysuredhead_mark_font: }
+\NewDocumentCommand \RedHeadTitleFont      { } { \__sysuredhead_mark_font: }
+\NewDocumentCommand \RedHeadBodyFont       { } { \fangsong }
+\NewDocumentCommand \RedHeadLevelOneFont   { } { \heiti }
+\NewDocumentCommand \RedHeadLevelTwoFont   { } { \kaishu }
+\NewDocumentCommand \RedHeadLevelThreeFont { } { \fangsong }
+\NewDocumentCommand \RedHeadLevelFourFont  { } { \fangsong }
+\NewDocumentCommand \RedHeadPageNumberFont { } { \songti }
+
+% Historical documents used \xbs for an unbundled font file. Keep the name,
+% but route it through the configurable, redistributable font selection.
+\cs_if_exist:NTF \xbs
+  { \RenewDocumentCommand \xbs { } { \RedHeadMarkFont } }
+  { \NewDocumentCommand   \xbs { } { \RedHeadMarkFont } }
+
+\ExplSyntaxOff
+
+\endinput
