@@ -1,0 +1,6 @@
+interface:
+  display_name: "SYSURedHead 公文草稿"
+  short_description: "创建、排版并检查自包含的中文党政机关公文 LaTeX 草稿"
+  default_prompt: "使用 $redhead-document 创建一份使用虚构字段的通知 LaTeX 草稿并编译检查。"
+policy:
+  allow_implicit_invocation: true
