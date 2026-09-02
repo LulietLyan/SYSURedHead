@@ -1,0 +1,38 @@
+{
+  "name": "sysu-redhead",
+  "version": "1.0.0",
+  "description": "使用 SYSURedHead 创建、编译并检查中文党政机关公文 LaTeX 草稿。",
+  "author": {
+    "name": "Luliet Lyan",
+    "email": "147937803+LulietLyan@users.noreply.github.com",
+    "url": "https://github.com/LulietLyan"
+  },
+  "homepage": "https://github.com/LulietLyan/SYSURedHead",
+  "repository": "https://github.com/LulietLyan/SYSURedHead",
+  "license": "MIT",
+  "keywords": [
+    "latex",
+    "chinese-documents",
+    "gb-t-9704-2012",
+    "agent-skill"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SYSURedHead 公文草稿工具",
+    "shortDescription": "创建并检查中文公文 LaTeX 草稿。",
+    "longDescription": "从通知、请示、联合行文、函、命令、纪要或校园报告模板创建自包含的 SYSURedHead 项目，可在本地使用 XeLaTeX 编译并给出人工核验项。输出仅用于教学、研究或草稿，不具正式公文效力。",
+    "developerName": "Luliet Lyan",
+    "category": "Productivity",
+    "capabilities": [
+      "Document generation",
+      "Local LaTeX build"
+    ],
+    "websiteURL": "https://github.com/LulietLyan/SYSURedHead",
+    "brandColor": "#C7000B",
+    "defaultPrompt": [
+      "创建一份使用虚构字段的通知 LaTeX 草稿并编译检查。",
+      "按上行文格式起草一份请示，保留待填写内容。",
+      "初始化一个自包含的纪要排版项目。"
+    ]
+  }
+}
